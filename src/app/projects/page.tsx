@@ -120,15 +120,17 @@ export default function ProjectsPage() {
           </DialogHeader>
           {selectedProject && (
             <div className="space-y-4">
-              <div className="relative h-96 bg-gray-200 overflow-hidden rounded-lg">
-                <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
-                />
-              </div>
+              {selectedProject.id === '1' && (
+                <div className="relative h-96 bg-gray-200 overflow-hidden rounded-lg">
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
+                  />
+                </div>
+              )}
               <div className="space-y-2">
                 <p className="text-gray-600">
                   <span className="font-semibold">Location:</span> {selectedProject.location}
