@@ -1,7 +1,7 @@
 import { Project } from '@/types';
 
 export const projects: Project[] = [
-  { id: '1', name: 'Old Parkland Offices', location: 'Dallas', category: 'commercial', image: '/images/projects/old-parkland.jpg' },
+  { id: '1', name: 'Old Parkland Offices', location: 'Dallas', category: 'commercial', image: '/images/projects/Old-Parkland.jpeg', description: 'Curtainwall Installation' },
   { id: '2', name: 'Cook Children\'s Medical Office Building & Parking Garage', location: 'Ft. Worth', category: 'healthcare', image: '/images/projects/cook-children-mob.jpg' },
   { id: '3', name: 'Uptown Marriott', location: 'Dallas', category: 'hotel', image: '/images/projects/uptown-marriott.jpg' },
   { id: '4', name: 'Kimball Park Offices', location: 'Southlake', category: 'commercial', image: '/images/projects/kimball-park.jpg' },

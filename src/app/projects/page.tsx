@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { projects } from '@/data/projects';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Image from 'next/image';
+import type { Project } from '@/types';
 
 const categories = [
   { id: 'all', label: 'All Projects' },
@@ -16,11 +18,18 @@ const categories = [
 
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredProjects =
     selectedCategory === 'all'
       ? projects
       : projects.filter((project) => project.category === selectedCategory);
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="flex flex-col">
@@ -64,16 +73,28 @@ export default function ProjectsPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project) => (
-              <Card key={project.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={project.id}
+                className="overflow-hidden transition-all hover:shadow-lg cursor-pointer hover:shadow-2xl hover:border-[#339900] border-2 border-transparent"
+                onClick={() => handleProjectClick(project)}
+              >
                 <CardContent className="p-0">
-                  {/* Placeholder for project image */}
-                  <div className="relative h-64 bg-gray-300 flex items-center justify-center">
-                    <div className="text-6xl">🏢</div>
+                  {/* Project Image */}
+                  <div className="relative h-64 bg-gray-300 flex items-center justify-center overflow-hidden group">
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={false}
+                    />
                   </div>
 
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-2">{project.name}</h3>
                     <p className="text-gray-600 mb-2">{project.location}</p>
+                    {project.description && <p className="text-sm text-gray-500 mb-3">{project.description}</p>}
                     <span className="inline-block px-3 py-1 bg-[#339900] text-white text-sm rounded-full capitalize">
                       {project.category}
                     </span>
@@ -90,6 +111,39 @@ export default function ProjectsPage() {
           )}
         </div>
       </section>
+
+      {/* Project Modal */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">{selectedProject?.name}</DialogTitle>
+          </DialogHeader>
+          {selectedProject && (
+            <div className="space-y-4">
+              <div className="relative h-96 bg-gray-200 overflow-hidden rounded-lg">
+                <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
+                />
+              </div>
+              <div className="space-y-2">
+                <p className="text-gray-600">
+                  <span className="font-semibold">Location:</span> {selectedProject.location}
+                </p>
+                <p className="text-gray-600">
+                  <span className="font-semibold">Category:</span> <span className="capitalize">{selectedProject.category}</span>
+                </p>
+                {selectedProject.description && (
+                  <p className="text-gray-700">{selectedProject.description}</p>
+                )}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Stats Section */}
       <section className="py-20 bg-white">

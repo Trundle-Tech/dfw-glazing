@@ -16,6 +16,7 @@ export interface Project {
   category: 'hotel' | 'school' | 'healthcare' | 'commercial' | 'other';
   image: string;
   description?: string;
+  video?: string;
 }
 
 export interface Service {

@@ -1,16 +1,19 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, Phone, Quote, Star, Store, Building2, DoorOpen, ArrowLeftRight, GlassWater, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { services } from '@/data/services';
 import { testimonials } from '@/data/testimonials';
 import { projects } from '@/data/projects';
 import FadeIn from '@/components/animations/FadeIn';
 import CountUp from '@/components/animations/CountUp';
 import Image from 'next/image';
+import type { Project } from '@/types';
 
 // Map icon names to actual icon components
 const iconMap: { [key: string]: React.ReactNode } = {
@@ -23,6 +26,9 @@ const iconMap: { [key: string]: React.ReactNode } = {
 };
 
 export default function Home() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const stats = [
     { value: 2004, label: 'Established', isYear: true },
     { value: 81, label: 'Years Combined Experience', suffix: '+' },
@@ -38,6 +44,11 @@ export default function Home() {
     'Maintain close contact with customers',
     'Quickly address customer concerns',
   ];
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="flex flex-col">
@@ -280,16 +291,20 @@ export default function Home() {
                 <motion.div
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
                   className="h-full"
+                  onClick={() => handleProjectClick(project)}
                 >
-                  <Card className="overflow-hidden h-full bg-white hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#339900] flex flex-col">
-                    <div className="relative h-64 bg-gray-200 flex-shrink-0">
+                  <Card
+                    className="overflow-hidden h-full bg-white hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#339900] flex flex-col cursor-pointer"
+                  >
+                    <div className="relative h-64 bg-gray-200 flex-shrink-0 overflow-hidden group">
                       <Image
                         src={project.image}
                         alt={project.name}
                         fill
-                        className="object-cover"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
+
                       <div className="absolute top-4 right-4 bg-[#339900] text-white px-3 py-1 rounded-full text-xs font-semibold uppercase">
                         {project.category}
                       </div>
@@ -297,6 +312,7 @@ export default function Home() {
                     <CardContent className="p-6 flex flex-col flex-grow">
                       <h3 className="text-xl font-semibold mb-2 text-gray-900">{project.name}</h3>
                       <p className="text-gray-600">{project.location}</p>
+                      {project.description && <p className="text-sm text-gray-500 mt-2">{project.description}</p>}
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -413,6 +429,39 @@ export default function Home() {
           </FadeIn>
         </div>
       </section>
+
+      {/* Project Modal */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">{selectedProject?.name}</DialogTitle>
+          </DialogHeader>
+          {selectedProject && (
+            <div className="space-y-4">
+              <div className="relative h-96 bg-gray-200 overflow-hidden rounded-lg">
+                <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
+                />
+              </div>
+              <div className="space-y-2">
+                <p className="text-gray-600">
+                  <span className="font-semibold">Location:</span> {selectedProject.location}
+                </p>
+                <p className="text-gray-600">
+                  <span className="font-semibold">Category:</span> <span className="capitalize">{selectedProject.category}</span>
+                </p>
+                {selectedProject.description && (
+                  <p className="text-gray-700">{selectedProject.description}</p>
+                )}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
