@@ -120,32 +120,22 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button asChild size="lg" className="bg-[#339900] hover:bg-[#2d8500] text-white text-lg shadow-xl">
-                  <Link href="/contact">
-                    Get Free Quote Now <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </motion.div>
+              <Button asChild size="lg" className="bg-[#339900] hover:bg-[#2d8500] text-white text-lg shadow-xl hover:shadow-2xl transition-all">
+                <Link href="/contact">
+                  Get Free Quote Now <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button asChild size="lg" variant="outline" className="border-white bg-white text-gray-900 hover:bg-gray-100 text-lg">
-                  <Link href="/projects">View Projects</Link>
-                </Button>
-              </motion.div>
+              <Button asChild size="lg" variant="outline" className="border-white bg-white text-gray-900 hover:bg-gray-100 text-lg shadow-lg hover:shadow-xl transition-all">
+                <Link href="/projects">View Projects</Link>
+              </Button>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-white border-b">
+      <section className="py-12 bg-gray-100 border-b">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -177,31 +167,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ gridAutoRows: '1fr' }}>
             {services.map((service, index) => (
               <FadeIn key={service.id} delay={index * 0.1} direction="up">
-                <motion.div
-                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  className="h-full"
-                >
-                  <Card className="h-full hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#339900] flex flex-col">
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <motion.div
-                        className="w-12 h-12 bg-[#339900] rounded-lg flex items-center justify-center mb-4 text-white"
-                        whileHover={{ rotate: 360, scale: 1.1 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        {iconMap[service.icon]}
-                      </motion.div>
-                      <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
-                      <p className="text-gray-600 mb-4 flex-grow">{service.description}</p>
-                      <Link
-                        href={`/services/${service.id}`}
-                        className="text-[#339900] hover:text-[#2d8500] font-medium inline-flex items-center group mt-auto"
-                      >
-                        Learn More
-                        <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-[#339900] flex flex-col">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <div className="w-12 h-12 bg-[#339900] rounded-lg flex items-center justify-center mb-4 text-white">
+                      {iconMap[service.icon]}
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
+                    <p className="text-gray-600 flex-grow">{service.description}</p>
+                  </CardContent>
+                </Card>
               </FadeIn>
             ))}
           </div>
@@ -209,7 +183,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <FadeIn direction="left">
@@ -222,13 +196,10 @@ export default function Home() {
                 <div className="space-y-4">
                   {values.map((value, index) => (
                     <FadeIn key={index} delay={index * 0.1} direction="right">
-                      <motion.div
-                        className="flex items-start"
-                        whileHover={{ x: 5, transition: { duration: 0.2 } }}
-                      >
+                      <div className="flex items-start">
                         <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
                         <p className="text-gray-700">{value}</p>
-                      </motion.div>
+                      </div>
                     </FadeIn>
                   ))}
                 </div>
@@ -236,22 +207,14 @@ export default function Home() {
             </FadeIn>
 
             <FadeIn direction="right" delay={0.2}>
-              <motion.div
-                className="bg-gray-100 p-8 rounded-lg"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
+              <div className="bg-gray-50 p-8 rounded-lg border-2 border-gray-200">
                 <h3 className="text-2xl font-bold mb-4">Our Commitment</h3>
                 <p className="text-gray-700 mb-6">
                   We involve ourselves with today's leading manufacturers of aluminum and glass
                   to ensure we maintain quality products as well as quality installation.
                 </p>
                 <div className="space-y-4">
-                  <motion.div
-                    className="flex items-center p-4 bg-white rounded-lg shadow-sm"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border-2 border-gray-200">
                     <Phone className="w-8 h-8 text-[#339900] mr-4" />
                     <div>
                       <div className="font-semibold">Call Us Today</div>
@@ -259,15 +222,13 @@ export default function Home() {
                         817-696-9500
                       </a>
                     </div>
-                  </motion.div>
+                  </div>
 
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button asChild className="w-full bg-[#339900] hover:bg-[#2d8500]">
-                      <Link href="/contact">Request a Quote</Link>
-                    </Button>
-                  </motion.div>
+                  <Button asChild className="w-full bg-[#339900] hover:bg-[#2d8500] shadow-md hover:shadow-lg transition-all">
+                    <Link href="/contact">Request a Quote</Link>
+                  </Button>
                 </div>
-              </motion.div>
+              </div>
             </FadeIn>
           </div>
         </div>
@@ -288,47 +249,40 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {projects.slice(0, 6).map((project, index) => (
               <FadeIn key={project.id} delay={index * 0.1} direction="up">
-                <motion.div
-                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  className="h-full"
+                <Card
+                  className="overflow-hidden h-full bg-gray-50 hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-[#339900] flex flex-col cursor-pointer"
                   onClick={() => handleProjectClick(project)}
                 >
-                  <Card
-                    className="overflow-hidden h-full bg-white hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#339900] flex flex-col cursor-pointer"
-                  >
-                    <div className="relative h-64 bg-gray-200 flex-shrink-0 overflow-hidden group">
-                      <Image
-                        src={project.image}
-                        alt={project.name}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
+                  <div className="relative h-64 bg-gray-200 flex-shrink-0 overflow-hidden group">
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
 
-                      <div className="absolute top-4 right-4 bg-[#339900] text-white px-3 py-1 rounded-full text-xs font-semibold uppercase">
-                        {project.category}
-                      </div>
+                    <div className="absolute top-4 right-4 bg-[#339900] text-white px-3 py-1 rounded-full text-xs font-semibold uppercase">
+                      {project.category}
                     </div>
-                    <CardContent className="p-6 flex flex-col flex-grow">
-                      <h3 className="text-xl font-semibold mb-2 text-gray-900">{project.name}</h3>
-                      <p className="text-gray-600">{project.location}</p>
-                      {project.description && <p className="text-sm text-gray-500 mt-2">{project.description}</p>}
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                  </div>
+                  <CardContent className="p-6 flex flex-col flex-grow">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900">{project.name}</h3>
+                    <p className="text-gray-600">{project.location}</p>
+                    {project.description && <p className="text-sm text-gray-500 mt-2">{project.description}</p>}
+                  </CardContent>
+                </Card>
               </FadeIn>
             ))}
           </div>
 
           <FadeIn delay={0.6} direction="up">
             <div className="text-center">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button asChild size="lg" variant="outline" className="border-white bg-white text-gray-900 hover:bg-gray-100">
-                  <Link href="/projects">
-                    View All Projects <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </motion.div>
+              <Button asChild size="lg" variant="outline" className="border-white bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all">
+                <Link href="/projects">
+                  View All Projects <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
             </div>
           </FadeIn>
         </div>
@@ -349,36 +303,31 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
               <FadeIn key={testimonial.id} delay={index * 0.1} direction="up">
-                <motion.div
-                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  className="h-full"
-                >
-                  <Card className="h-full hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#339900]">
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <div className="flex items-center justify-between mb-4">
-                        <Quote className="w-10 h-10 text-[#339900] opacity-50" />
-                        <div className="flex gap-1">
-                          {[...Array(testimonial.rating || 5)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-[#339900] text-[#339900]" />
-                          ))}
-                        </div>
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-[#339900]">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <div className="flex items-center justify-between mb-4">
+                      <Quote className="w-10 h-10 text-[#339900] opacity-50" />
+                      <div className="flex gap-1">
+                        {[...Array(testimonial.rating || 5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-[#339900] text-[#339900]" />
+                        ))}
                       </div>
+                    </div>
 
-                      <p className="text-gray-700 mb-6 flex-grow italic">
-                        "{testimonial.quote}"
-                      </p>
+                    <p className="text-gray-700 mb-6 flex-grow italic">
+                      "{testimonial.quote}"
+                    </p>
 
-                      <div className="border-t pt-4">
-                        <p className="font-bold text-gray-900">{testimonial.name}</p>
-                        <p className="text-sm text-gray-600">{testimonial.title}</p>
-                        <p className="text-sm font-medium text-[#339900]">{testimonial.company}</p>
-                        {testimonial.project && (
-                          <p className="text-xs text-gray-500 mt-2">Project: {testimonial.project}</p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                    <div className="border-t pt-4">
+                      <p className="font-bold text-gray-900">{testimonial.name}</p>
+                      <p className="text-sm text-gray-600">{testimonial.title}</p>
+                      <p className="text-sm font-medium text-[#339900]">{testimonial.company}</p>
+                      {testimonial.project && (
+                        <p className="text-xs text-gray-500 mt-2">Project: {testimonial.project}</p>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
               </FadeIn>
             ))}
           </div>
@@ -386,11 +335,9 @@ export default function Home() {
           <FadeIn delay={0.5} direction="up">
             <div className="text-center mt-12">
               <p className="text-gray-600 mb-4">Join over 150+ satisfied clients who trust DFW Glazing</p>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button asChild size="lg" className="bg-[#339900] hover:bg-[#2d8500]">
-                  <Link href="/contact">Start Your Project</Link>
-                </Button>
-              </motion.div>
+              <Button asChild size="lg" className="bg-[#339900] hover:bg-[#2d8500] shadow-lg hover:shadow-xl transition-all">
+                <Link href="/contact">Start Your Project</Link>
+              </Button>
             </div>
           </FadeIn>
         </div>
@@ -418,14 +365,9 @@ export default function Home() {
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
               Contact us today for a free consultation and quote on your commercial glass project
             </p>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button asChild size="lg" variant="outline" className="border-white bg-white text-gray-900 hover:bg-gray-100">
-                <Link href="/contact">Get Started Today</Link>
-              </Button>
-            </motion.div>
+            <Button asChild size="lg" variant="outline" className="border-white bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all">
+              <Link href="/contact">Get Started Today</Link>
+            </Button>
           </FadeIn>
         </div>
       </section>

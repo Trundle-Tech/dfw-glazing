@@ -16,7 +16,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Upload, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import FadeIn from '@/components/animations/FadeIn';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -29,9 +31,14 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const ACCEPTED_FILE_TYPES = ['.pdf', '.zip'];
+
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState<string>('');
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -45,53 +52,94 @@ export default function ContactPage() {
     },
   });
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Check file type
+    const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
+    if (!ACCEPTED_FILE_TYPES.includes(fileExtension)) {
+      setFileError('Only PDF and ZIP files are allowed');
+      setSelectedFile(null);
+      return;
+    }
+
+    // Check file size
+    if (file.size > MAX_FILE_SIZE) {
+      setFileError('File size must be less than 10MB');
+      setSelectedFile(null);
+      return;
+    }
+
+    setFileError('');
+    setSelectedFile(file);
+  };
+
+  const handleRemoveFile = () => {
+    setSelectedFile(null);
+    setFileError('');
+  };
+
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log(data);
+    if (selectedFile) {
+      console.log('Attached file:', selectedFile.name);
+    }
     setIsSubmitting(false);
     setSubmitSuccess(true);
     form.reset();
+    setSelectedFile(null);
     setTimeout(() => setSubmitSuccess(false), 5000);
   };
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
-            <p className="text-xl text-gray-300">
-              Get in touch to discuss your commercial glass project. We're here to help!
-            </p>
-          </div>
-        </div>
-      </section>
-
+    <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Contact Information & Form */}
-      <section className="py-20 bg-white">
+      <section className="py-12 flex-1 flex items-center">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-8">
+          <FadeIn direction="up">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl md:text-4xl font-bold mb-3">Contact Us</h1>
+              <p className="text-lg text-gray-600">
+                Get in touch to discuss your commercial glass project
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid lg:grid-cols-3 gap-6">
             {/* Contact Info Cards */}
-            <div className="space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-start">
-                    <div className="w-12 h-12 bg-[#339900] rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                      <MapPin className="w-6 h-6 text-white" />
+            <div className="h-full">
+              <FadeIn direction="left" className="h-full">
+                <div className="flex flex-col gap-4 h-full justify-between">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=4308+Clay+Ave+Haltom+City+TX+76117"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <Card className="hover:shadow-lg hover:border-[#339900] transition-all duration-300 cursor-pointer border-2 border-gray-200">
+                  <CardContent className="p-6">
+                    <div className="flex items-start">
+                      <div className="w-12 h-12 bg-[#339900] rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                        <MapPin className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-2">Office Location</h3>
+                        <p className="text-gray-600 text-sm">
+                          4308 Clay Ave<br />
+                          Haltom City, TX 76117
+                        </p>
+                        <p className="text-[#339900] text-xs mt-2 font-medium">
+                          Click to open in maps
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">Office Location</h3>
-                      <p className="text-gray-600 text-sm">
-                        4308 Clay Ave<br />
-                        Haltom City, TX 76117
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </a>
 
               <Card>
                 <CardContent className="p-6">
@@ -128,13 +176,16 @@ export default function ContactPage() {
                   </div>
                 </CardContent>
               </Card>
+                </div>
+              </FadeIn>
             </div>
 
             {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <Card>
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold mb-6">Request a Quote</h2>
+            <div className="lg:col-span-2 h-full">
+              <FadeIn direction="right" delay={0.2} className="h-full">
+              <Card className="h-full">
+                <CardContent className="p-6 h-full flex flex-col">
+                  <h2 className="text-xl font-bold mb-4">Request a Quote</h2>
 
                   {submitSuccess && (
                     <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
@@ -145,122 +196,178 @@ export default function ContactPage() {
                   )}
 
                   <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <FormField
-                          control={form.control}
-                          name="name"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Name *</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Your name" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 flex flex-col">
+                      <div className="grid md:grid-cols-2 gap-6 flex-1">
+                        {/* Left Column - Basic Info */}
+                        <div className="space-y-4">
+                          <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Name *</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Your name" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
 
-                        <FormField
-                          control={form.control}
-                          name="company"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Company</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Company name" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                          <FormField
+                            control={form.control}
+                            name="company"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Company</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Company name" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Email *</FormLabel>
+                                <FormControl>
+                                  <Input type="email" placeholder="your@email.com" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          <FormField
+                            control={form.control}
+                            name="phone"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Phone *</FormLabel>
+                                <FormControl>
+                                  <Input type="tel" placeholder="(123) 456-7890" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          <FormField
+                            control={form.control}
+                            name="projectType"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Project Type *</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="e.g., Storefront, Curtainwall, etc." {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+
+                        {/* Right Column - Project Details & File Upload */}
+                        <div className="space-y-4">
+                          <FormField
+                            control={form.control}
+                            name="message"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Project Details *</FormLabel>
+                                <FormControl>
+                                  <Textarea
+                                    placeholder="Tell us about your project..."
+                                    className="min-h-[200px]"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          {/* File Upload */}
+                          <div className="space-y-2">
+                            <label className="text-sm font-medium">
+                              Attach Files (Optional)
+                            </label>
+                            <p className="text-xs text-gray-500">
+                              Upload project plans, specifications, or other relevant documents (PDF or ZIP, max 10MB)
+                            </p>
+
+                            {!selectedFile ? (
+                              <div className="relative">
+                                <input
+                                  type="file"
+                                  accept=".pdf,.zip"
+                                  onChange={handleFileChange}
+                                  className="hidden"
+                                  id="file-upload"
+                                />
+                                <label
+                                  htmlFor="file-upload"
+                                  className="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#339900] hover:bg-gray-50 cursor-pointer transition-colors"
+                                >
+                                  <div className="text-center">
+                                    <Upload className="w-5 h-5 text-gray-400 mx-auto mb-1" />
+                                    <p className="text-xs text-gray-600">
+                                      Click to upload (PDF or ZIP, max 10MB)
+                                    </p>
+                                  </div>
+                                </label>
+                              </div>
+                            ) : (
+                              <div className="flex items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-10 h-10 bg-[#339900] rounded-lg flex items-center justify-center">
+                                    <Upload className="w-5 h-5 text-white" />
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-medium text-gray-900">
+                                      {selectedFile.name}
+                                    </p>
+                                    <p className="text-xs text-gray-500">
+                                      {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
+                                    </p>
+                                  </div>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={handleRemoveFile}
+                                  className="text-gray-400 hover:text-red-500 transition-colors"
+                                >
+                                  <X className="w-5 h-5" />
+                                </button>
+                              </div>
+                            )}
+
+                            {fileError && (
+                              <p className="text-sm text-red-500">{fileError}</p>
+                            )}
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <FormField
-                          control={form.control}
-                          name="email"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Email *</FormLabel>
-                              <FormControl>
-                                <Input type="email" placeholder="your@email.com" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Phone *</FormLabel>
-                              <FormControl>
-                                <Input type="tel" placeholder="(123) 456-7890" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                      <div className="mt-4">
+                        <Button
+                          type="submit"
+                          className="w-full bg-[#339900] hover:bg-[#2d8500]"
+                          disabled={isSubmitting}
+                        >
+                          {isSubmitting ? 'Sending...' : 'Send Message'}
+                        </Button>
                       </div>
-
-                      <FormField
-                        control={form.control}
-                        name="projectType"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Project Type *</FormLabel>
-                            <FormControl>
-                              <Input placeholder="e.g., Storefront, Curtainwall, etc." {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={form.control}
-                        name="message"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Project Details *</FormLabel>
-                            <FormControl>
-                              <Textarea
-                                placeholder="Tell us about your project..."
-                                className="min-h-[150px]"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <Button
-                        type="submit"
-                        className="w-full bg-[#339900] hover:bg-[#2d8500]"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                      </Button>
                     </form>
                   </Form>
                 </CardContent>
               </Card>
+              </FadeIn>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Map Placeholder */}
-      <section className="h-96 bg-gray-200">
-        <div className="w-full h-full flex items-center justify-center text-gray-500">
-          <div className="text-center">
-            <MapPin className="w-16 h-16 mx-auto mb-4" />
-            <p className="text-lg">Map Integration</p>
-            <p className="text-sm">4308 Clay Ave, Haltom City, TX 76117</p>
           </div>
         </div>
       </section>
