@@ -69,23 +69,35 @@ export default function StickyCTA() {
               </p>
 
               <div className="space-y-3">
-                <Button asChild className="w-full bg-[#339900] hover:bg-[#2d8500]">
-                  <Link href="/contact">
-                    <MessageSquare className="w-4 h-4 mr-2" />
-                    Request a Quote
-                  </Link>
-                </Button>
-
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-[#339900] text-[#339900] hover:bg-[#339900] hover:text-white"
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <a href="tel:8176969500">
-                    <Phone className="w-4 h-4 mr-2" />
-                    Call: 817-696-9500
-                  </a>
-                </Button>
+                  <Button asChild className="w-full bg-[#339900] hover:bg-[#2d8500] shadow-md hover:shadow-lg transition-all text-white">
+                    <Link href="/contact">
+                      <MessageSquare className="w-4 h-4 mr-2" />
+                      Request a Quote
+                    </Link>
+                  </Button>
+                </motion.div>
+
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="w-full border-[#339900] text-[#339900] hover:bg-[#339900] hover:text-white shadow-sm hover:shadow-md transition-all"
+                  >
+                    <a href="tel:8176969500">
+                      <Phone className="w-4 h-4 mr-2" />
+                      Call: 817-696-9500
+                    </a>
+                  </Button>
+                </motion.div>
               </div>
 
               <div className="mt-4 pt-4 border-t text-center">

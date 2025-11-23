@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     // Disable ESLint during builds (warnings only in dev)
     ignoreDuringBuilds: true,
   },
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;

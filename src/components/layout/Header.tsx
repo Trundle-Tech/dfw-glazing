@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -28,11 +29,15 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold">
-              <span className="text-[#339900]">DFW</span>
-              <span className="text-gray-900"> GLAZING</span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/images/logo.png"
+              alt="DFW Glazing Inc."
+              width={200}
+              height={80}
+              className="h-14 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -54,7 +59,7 @@ export default function Header() {
               <Phone className="w-4 h-4 mr-2" />
               817-696-9500
             </a>
-            <Button asChild className="bg-[#339900] hover:bg-[#2d8500]">
+            <Button asChild className="bg-[#339900] hover:bg-[#2d8500] text-white">
               <Link href="/contact">Get Quote</Link>
             </Button>
           </div>
@@ -86,7 +91,7 @@ export default function Header() {
                     <Phone className="w-5 h-5 mr-3" />
                     817-696-9500
                   </a>
-                  <Button asChild className="w-full mt-4 bg-[#339900] hover:bg-[#2d8500]">
+                  <Button asChild className="w-full mt-4 bg-[#339900] hover:bg-[#2d8500] text-white">
                     <Link href="/contact" onClick={() => setIsOpen(false)}>
                       Get Quote
                     </Link>
