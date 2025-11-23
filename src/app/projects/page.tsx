@@ -2,14 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { projects } from '@/data/projects';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Image from 'next/image';
 import FadeIn from '@/components/animations/FadeIn';
-import type { Project } from '@/types';
 
 const categories = [
   { id: 'all', label: 'All Projects' },
@@ -21,18 +18,11 @@ const categories = [
 
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredProjects =
     selectedCategory === 'all'
       ? projects
       : projects.filter((project) => project.category === selectedCategory);
-
-  const handleProjectClick = (project: Project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
 
   return (
     <div className="flex flex-col">
@@ -79,11 +69,8 @@ export default function ProjectsPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project, index) => (
-              <FadeIn key={project.id} delay={index * 0.05} direction="up">
-                <Card
-                  className="overflow-hidden h-full cursor-pointer border-2 border-gray-200"
-                  onClick={() => handleProjectClick(project)}
-                >
+              <FadeIn key={project.id} delay={index * 0.02} direction="up">
+                <Card className="overflow-hidden h-full border-2 border-gray-200">
                   <CardContent className="p-0">
                     {/* Project Image */}
                     <div className="relative h-64 bg-gray-300 flex items-center justify-center overflow-hidden">
@@ -111,20 +98,17 @@ export default function ProjectsPage() {
             ))}
 
             {/* Add Your Project CTA Card */}
-            <FadeIn delay={filteredProjects.length * 0.05} direction="up">
+            <FadeIn delay={filteredProjects.length * 0.02} direction="up">
               <Link href="/contact">
                 <Card className="overflow-hidden h-full cursor-pointer border-2 border-[#339900] bg-gradient-to-br from-[#339900] to-[#2d8500] hover:from-[#2d8500] hover:to-[#339900] transition-all">
                   <CardContent className="p-0">
-                    <div className="relative h-64 flex flex-col items-center justify-center text-white">
+                    <div className="relative h-full flex flex-col items-center justify-center text-white p-6">
                       <div className="text-6xl mb-4">+</div>
-                      <h3 className="text-2xl font-bold mb-2">Add Your Project</h3>
-                      <p className="text-white/90 px-6 text-center">
+                      <h3 className="text-2xl font-bold mb-3">Add Your Project</h3>
+                      <p className="text-white/90 px-6 text-center mb-6">
                         Ready to work with us? Let's discuss your next glass installation project.
                       </p>
-                    </div>
-
-                    <div className="p-6 bg-white">
-                      <Button className="w-full bg-[#339900] hover:bg-[#2d8500] text-white">
+                      <Button className="bg-white hover:bg-gray-100 text-[#339900] font-semibold">
                         Contact Us Today
                       </Button>
                     </div>
@@ -141,41 +125,6 @@ export default function ProjectsPage() {
           )}
         </div>
       </section>
-
-      {/* Project Modal */}
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl">{selectedProject?.name}</DialogTitle>
-          </DialogHeader>
-          {selectedProject && (
-            <div className="space-y-4">
-              {selectedProject.id === '1' && (
-                <div className="relative h-96 bg-gray-200 overflow-hidden rounded-lg">
-                  <Image
-                    src={selectedProject.image}
-                    alt={selectedProject.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
-                  />
-                </div>
-              )}
-              <div className="space-y-2">
-                <p className="text-gray-600">
-                  <span className="font-semibold">Location:</span> {selectedProject.location}
-                </p>
-                <p className="text-gray-600">
-                  <span className="font-semibold">Category:</span> <span className="capitalize">{selectedProject.category}</span>
-                </p>
-                {selectedProject.description && (
-                  <p className="text-gray-700">{selectedProject.description}</p>
-                )}
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
 
       {/* Stats Section */}
       <section className="py-20 bg-gray-100">

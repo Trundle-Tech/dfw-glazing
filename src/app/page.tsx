@@ -1,19 +1,16 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, Phone, Quote, Star, Store, Building2, DoorOpen, ArrowLeftRight, GlassWater, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { services } from '@/data/services';
 import { testimonials } from '@/data/testimonials';
 import { projects } from '@/data/projects';
 import FadeIn from '@/components/animations/FadeIn';
 import CountUp from '@/components/animations/CountUp';
 import Image from 'next/image';
-import type { Project } from '@/types';
 
 // Map icon names to actual icon components
 const iconMap: { [key: string]: React.ReactNode } = {
@@ -26,9 +23,6 @@ const iconMap: { [key: string]: React.ReactNode } = {
 };
 
 export default function Home() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const stats = [
     { value: 2004, label: 'Established', isYear: true },
     { value: 81, label: 'Years Combined Experience', suffix: '+' },
@@ -44,11 +38,6 @@ export default function Home() {
     'Maintain close contact with customers',
     'Quickly address customer concerns',
   ];
-
-  const handleProjectClick = (project: Project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
 
   return (
     <div className="flex flex-col">
@@ -152,88 +141,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <FadeIn direction="up">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                We offer comprehensive commercial glass installation services for all your project needs
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ gridAutoRows: '1fr' }}>
-            {services.map((service, index) => (
-              <FadeIn key={service.id} delay={index * 0.1} direction="up">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-[#339900] flex flex-col">
-                  <CardContent className="p-6 flex flex-col h-full">
-                    <div className="w-12 h-12 bg-[#339900] rounded-lg flex items-center justify-center mb-4 text-white">
-                      {iconMap[service.icon]}
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
-                    <p className="text-gray-600 flex-grow">{service.description}</p>
-                  </CardContent>
-                </Card>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-20 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <FadeIn direction="left">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Why Choose DFW Glazing?</h2>
-                <p className="text-lg text-gray-600 mb-8">
-                  We have made a commitment to provide the highest standards in glass installation
-                  and related services demanded in today's marketplace.
-                </p>
-                <div className="space-y-4">
-                  {values.map((value, index) => (
-                    <FadeIn key={index} delay={index * 0.1} direction="right">
-                      <div className="flex items-start">
-                        <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
-                        <p className="text-gray-700">{value}</p>
-                      </div>
-                    </FadeIn>
-                  ))}
-                </div>
-              </div>
-            </FadeIn>
-
-            <FadeIn direction="right" delay={0.2}>
-              <div className="bg-gray-50 p-8 rounded-lg border-2 border-gray-200">
-                <h3 className="text-2xl font-bold mb-4">Our Commitment</h3>
-                <p className="text-gray-700 mb-6">
-                  We involve ourselves with today's leading manufacturers of aluminum and glass
-                  to ensure we maintain quality products as well as quality installation.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border-2 border-gray-200">
-                    <Phone className="w-8 h-8 text-[#339900] mr-4" />
-                    <div>
-                      <div className="font-semibold">Call Us Today</div>
-                      <a href="tel:8176969500" className="text-[#339900] text-lg font-bold hover:underline">
-                        817-696-9500
-                      </a>
-                    </div>
-                  </div>
-
-                  <Button asChild className="w-full bg-[#339900] hover:bg-[#2d8500] shadow-md hover:shadow-lg transition-all">
-                    <Link href="/contact">Request a Quote</Link>
-                  </Button>
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
       {/* Featured Projects Section */}
       <section className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
         <div className="container mx-auto px-4">
@@ -248,11 +155,8 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {projects.slice(0, 6).map((project, index) => (
-              <FadeIn key={project.id} delay={index * 0.1} direction="up">
-                <Card
-                  className="overflow-hidden h-full bg-gray-50 hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-[#339900] flex flex-col cursor-pointer"
-                  onClick={() => handleProjectClick(project)}
-                >
+              <FadeIn key={project.id} delay={index * 0.05} direction="up">
+                <Card className="overflow-hidden h-full bg-gray-50 hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-[#339900] flex flex-col">
                   <div className="relative h-64 bg-gray-200 flex-shrink-0 overflow-hidden group">
                     <Image
                       src={project.image}
@@ -285,6 +189,88 @@ export default function Home() {
               </Button>
             </div>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <FadeIn direction="left">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">Why Choose DFW Glazing?</h2>
+                <p className="text-lg text-gray-600 mb-8">
+                  We have made a commitment to provide the highest standards in glass installation
+                  and related services demanded in today's marketplace.
+                </p>
+                <div className="space-y-4">
+                  {values.map((value, index) => (
+                    <FadeIn key={index} delay={index * 0.1} direction="right">
+                      <div className="flex items-start">
+                        <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
+                        <p className="text-gray-700">{value}</p>
+                      </div>
+                    </FadeIn>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="right" delay={0.2}>
+              <div className="bg-white p-8 rounded-lg border-2 border-gray-200">
+                <h3 className="text-2xl font-bold mb-4">Our Commitment</h3>
+                <p className="text-gray-700 mb-6">
+                  We involve ourselves with today's leading manufacturers of aluminum and glass
+                  to ensure we maintain quality products as well as quality installation.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-center p-4 bg-gray-50 rounded-lg shadow-sm border-2 border-gray-200">
+                    <Phone className="w-8 h-8 text-[#339900] mr-4" />
+                    <div>
+                      <div className="font-semibold">Call Us Today</div>
+                      <a href="tel:8176969500" className="text-[#339900] text-lg font-bold hover:underline">
+                        817-696-9500
+                      </a>
+                    </div>
+                  </div>
+
+                  <Button asChild className="w-full bg-[#339900] hover:bg-[#2d8500] shadow-md hover:shadow-lg transition-all">
+                    <Link href="/contact">Request a Quote</Link>
+                  </Button>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <FadeIn direction="up">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                We offer comprehensive commercial glass installation services for all your project needs
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ gridAutoRows: '1fr' }}>
+            {services.map((service, index) => (
+              <FadeIn key={service.id} delay={index * 0.1} direction="up">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-[#339900] flex flex-col">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <div className="w-12 h-12 bg-[#339900] rounded-lg flex items-center justify-center mb-4 text-white">
+                      {iconMap[service.icon]}
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
+                    <p className="text-gray-600 flex-grow">{service.description}</p>
+                  </CardContent>
+                </Card>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -371,41 +357,6 @@ export default function Home() {
           </FadeIn>
         </div>
       </section>
-
-      {/* Project Modal */}
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl">{selectedProject?.name}</DialogTitle>
-          </DialogHeader>
-          {selectedProject && (
-            <div className="space-y-4">
-              {selectedProject.id === '1' && (
-                <div className="relative h-96 bg-gray-200 overflow-hidden rounded-lg">
-                  <Image
-                    src={selectedProject.image}
-                    alt={selectedProject.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
-                  />
-                </div>
-              )}
-              <div className="space-y-2">
-                <p className="text-gray-600">
-                  <span className="font-semibold">Location:</span> {selectedProject.location}
-                </p>
-                <p className="text-gray-600">
-                  <span className="font-semibold">Category:</span> <span className="capitalize">{selectedProject.category}</span>
-                </p>
-                {selectedProject.description && (
-                  <p className="text-gray-700">{selectedProject.description}</p>
-                )}
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
