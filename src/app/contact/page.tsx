@@ -80,19 +80,67 @@ export default function ContactPage() {
     setFileError('');
   };
 
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64 = reader.result as string;
+        // Remove the data URL prefix (e.g., "data:application/pdf;base64,")
+        const base64Data = base64.split(',')[1];
+        resolve(base64Data);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
-    if (selectedFile) {
-      console.log('Attached file:', selectedFile.name);
+
+    try {
+      // Prepare form data
+      const formData: any = {
+        name: data.name,
+        company: data.company,
+        email: data.email,
+        phone: data.phone,
+        projectType: data.projectType,
+        message: data.message,
+      };
+
+      // Add file data if present
+      if (selectedFile) {
+        const fileData = await convertFileToBase64(selectedFile);
+        formData.fileName = selectedFile.name;
+        formData.fileSize = selectedFile.size;
+        formData.fileData = fileData;
+      }
+
+      // Submit to API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      // Success
+      setIsSubmitting(false);
+      setSubmitSuccess(true);
+      form.reset();
+      setSelectedFile(null);
+      setTimeout(() => setSubmitSuccess(false), 5000);
+
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setIsSubmitting(false);
+      alert('Failed to submit form. Please try again or call us at 817-696-9500.');
     }
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
-    form.reset();
-    setSelectedFile(null);
-    setTimeout(() => setSubmitSuccess(false), 5000);
   };
 
   return (
