@@ -1,9 +1,52 @@
 # DFW Glazing Website - Development Log
 
 ## Project Overview
-Commercial glass installation company website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.
+Commercial glass installation company website built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion.
 
-## Recent Updates (November 23, 2024)
+## Latest Updates (December 2, 2025)
+
+### n8n Webhook Integration
+
+#### Contact Form Backend Implementation
+- **Added:** API route at `/api/contact` for form submissions
+- **Integration:** Connected to n8n webhook for automated processing
+- **Webhook URL:** `https://tagi.app.n8n.cloud/webhook/dd985d8d-3f71-4920-bc64-4a89502b0815`
+- **Features:**
+  - Form validation for required fields
+  - File upload support (PDF/ZIP up to 10MB)
+  - Base64 file encoding for transmission
+  - Error handling with user-friendly messages
+  - Success notification after submission
+- **Location:** `src/app/api/contact/route.ts`
+- **Updated:** `src/app/contact/page.tsx:83-144` with API integration
+
+#### Data Structure Sent to n8n
+```json
+{
+  "name": "string",
+  "company": "string (optional)",
+  "email": "string",
+  "phone": "string",
+  "projectType": "string",
+  "message": "string",
+  "submittedAt": "ISO 8601 timestamp",
+  "fileAttached": "boolean",
+  "fileName": "string (if file attached)",
+  "fileSize": "number (if file attached)",
+  "fileData": "base64 string (if file attached)"
+}
+```
+
+### Configuration Fixes
+
+#### Image Loading Fix
+- **Fixed:** Images not loading after merge
+- **Restored:** `unoptimized: true` in next.config.ts
+- **Reason:** Next.js 15 has different image optimization requirements
+- **Status:** Images now load correctly across all pages
+- **Location:** `next.config.ts:8-10`
+
+## Previous Updates (November 23, 2024)
 
 ### UI/UX Improvements
 
@@ -126,8 +169,11 @@ Commercial glass installation company website built with Next.js 14, TypeScript,
 ```
 src/
 ├── app/
+│   ├── api/
+│   │   └── contact/
+│   │       └── route.ts (NEW: n8n webhook integration)
 │   ├── about/page.tsx (objectives sizing, icon animations removed)
-│   ├── contact/page.tsx (animations added earlier)
+│   ├── contact/page.tsx (webhook integration, file upload, API calls)
 │   ├── page.tsx (all popouts removed, 11 motion wrappers)
 │   ├── projects/page.tsx (CTA card added, popouts removed, mobile optimized)
 │   ├── services/page.tsx (Learn More removed, arrows added, popouts removed)
@@ -142,19 +188,26 @@ src/
 ## Git History
 - **Branch:** main
 - **Recent Commits:**
-  - "Remove 3D viewer and revert to image-only modals for demo"
-  - "Add 3D Gaussian Splatting viewer and update projects"
-  - "Add DFW Glazing website with all pages and components"
+  - `4701056` - "Fix image loading by restoring unoptimized config" (Dec 2, 2025)
+  - `3653bff` - "Add n8n webhook integration for contact form" (Dec 2, 2025)
+  - `643e319` - "Enable image optimization and compress project images" (Nov 23, 2025)
+  - `0dc484d` - "Fix swapped project images" (Nov 23, 2025)
+  - `d031d65` - "Improve UX and swap home page sections" (Nov 23, 2025)
 
 ## Next Steps / Recommendations
-1. Consider adding actual team member photos to replace User icon placeholders
-2. Add real project images to all 34 projects (currently only Old Parkland shows image)
-3. Implement contact form backend/API endpoint
-4. Add Google Maps integration for contact page
-5. Consider adding project detail pages with more images/info
-6. SEO optimization (meta tags, structured data)
-7. Performance audit and optimization
-8. Accessibility audit (ARIA labels, keyboard navigation)
+1. ✅ ~~Implement contact form backend/API endpoint~~ (COMPLETED: n8n webhook integration)
+2. Configure n8n workflow to handle form submissions:
+   - Send email notifications
+   - Store submissions in database
+   - Decode and save file attachments
+   - Set up automated responses
+3. Consider adding actual team member photos to replace User icon placeholders
+4. Add real project images to all 34 projects (currently only Old Parkland shows image)
+5. Add Google Maps integration for contact page
+6. Consider adding project detail pages with more images/info
+7. SEO optimization (meta tags, structured data)
+8. Performance audit and optimization
+9. Accessibility audit (ARIA labels, keyboard navigation)
 
 ## Development Notes
 - All animations are client-side rendered ('use client' directive)
@@ -162,10 +215,37 @@ src/
 - shadcn/ui components for UI elements
 - React Hook Form + Zod for form validation
 - Responsive design with Tailwind breakpoints (sm, md, lg)
+- Contact form submissions handled via n8n webhook integration
+- File uploads converted to base64 for API transmission
+
+## API Endpoints
+
+### POST /api/contact
+Contact form submission endpoint that forwards data to n8n webhook.
+
+**Request Body:**
+```typescript
+{
+  name: string;
+  company?: string;
+  email: string;
+  phone: string;
+  projectType: string;
+  message: string;
+  fileName?: string;
+  fileSize?: number;
+  fileData?: string; // base64 encoded
+}
+```
+
+**Response:**
+- `200`: Success with `{ success: true, message: string }`
+- `400`: Missing required fields
+- `500`: Server or webhook error
 
 ---
 
-**Last Updated:** November 23, 2024
+**Last Updated:** December 2, 2025
 **Developer:** Claude (Anthropic)
-**Framework:** Next.js 14.2.18
+**Framework:** Next.js 15.5.5
 **Node Version:** Recommended v18+
