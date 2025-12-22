@@ -16,7 +16,14 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { MapPin, Phone, Mail, Clock, Upload, X } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import { MapPin, Phone, Mail, Clock, Upload, X, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import FadeIn from '@/components/animations/FadeIn';
 
@@ -134,7 +141,6 @@ export default function ContactPage() {
       setSubmitSuccess(true);
       form.reset();
       setSelectedFile(null);
-      setTimeout(() => setSubmitSuccess(false), 5000);
 
     } catch (error) {
       console.error('Form submission error:', error);
@@ -234,14 +240,6 @@ export default function ContactPage() {
               <Card className="h-full">
                 <CardContent className="p-6 h-full flex flex-col">
                   <h2 className="text-xl font-bold mb-4">Request a Quote</h2>
-
-                  {submitSuccess && (
-                    <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                      <p className="text-green-800 font-medium">
-                        Thank you! We'll be in touch soon.
-                      </p>
-                    </div>
-                  )}
 
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 flex flex-col">
@@ -419,6 +417,31 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Success Modal */}
+      <Dialog open={submitSuccess} onOpenChange={setSubmitSuccess}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <CheckCircle className="w-8 h-8 text-[#339900]" />
+              </div>
+              <DialogTitle className="text-2xl">Submission Received</DialogTitle>
+            </div>
+          </DialogHeader>
+          <div className="text-center">
+            <DialogDescription className="text-base text-gray-700 mb-6">
+              We have received your submission. A member of our estimating team will reach out shortly.
+            </DialogDescription>
+            <Button
+              onClick={() => setSubmitSuccess(false)}
+              className="w-full bg-[#339900] hover:bg-[#2d8500]"
+            >
+              Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
