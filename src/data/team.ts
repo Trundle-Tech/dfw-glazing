@@ -24,7 +24,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'steve-williams',
     name: 'Steve Williams',
-    title: 'Pre-Construction Manager / Fabrication Engineer',
+    title: 'Pre-Construction Manager / Estimator',
     category: 'management',
     career: 'Steve began his glazing career in 1983 with Binswainger Glass in Ft. Worth! He was part of the service department.',
     favoriteMemory: 'The first job he did the estimate, won the bid, & project managed it from start to finish.',
@@ -41,7 +41,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'brandon-williams',
     name: 'Brandon Williams',
-    title: 'Project Manager',
+    title: 'Field Operations Manager',
     category: 'management',
     career: 'Brandon started part time in 2002 with Champion Glass and Mirror, and became full time in 2004 as an apprentice installer.',
     favoriteMemory: 'Installing a fake heavy glass door for a photo shoot and did such a good job everyone kept trying to enter and realized it wouldn\'t open.',
@@ -67,10 +67,31 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'orlando-santiago',
     name: 'Orlando Santiago',
-    title: 'Glazing Superintendent',
+    title: 'Shop Foreman',
     category: 'field',
     career: 'Orlando began in 1985 helping his father do residential and greenhouse assemblies and quickly learned the commercial aspects of installing.',
     favoriteMemory: 'Several memories as each job has it\'s own set, but one in particular was how he was able to control his emotions after seeing a man fall 33 feet while working in Puerto Rico and watch that man walk out of recovery 2 months later. That man, his father! After his arrival in Texas, credits his first job as a lead man as a favorite memory.',
     personal: 'Orlando is married to Zeny and they have 2 children. Likes to travel to different states, frequent Youtube, rest and study the Bible with his wife.'
+  },
+  // Project Managers (Corey Bynum's Team)
+  {
+    id: 'david-spence',
+    name: 'David Spence',
+    title: 'Project Manager',
+    category: 'management'
+  },
+  {
+    id: 'brandon-tipps',
+    name: 'Brandon Tipps',
+    title: 'Project Manager',
+    category: 'management',
+    career: 'Brandon is a graduate of Texas Tech University in 2018.',
+    personal: 'Brandon enjoys wake surfing, being a dad, and watching sports in his off time.'
+  },
+  {
+    id: 'steven-antillon',
+    name: 'Steven Antillon',
+    title: 'Production Coordinator',
+    category: 'management'
   }
 ];
