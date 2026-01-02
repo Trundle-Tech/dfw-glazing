@@ -5,7 +5,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'mike-bynum',
     name: 'Mike Bynum',
-    title: 'Co-Owner / President',
+    title: 'Partner / President',
     category: 'executive',
     career: 'Mike began his career as an apprentice in 1985 working for Bell County Glass in Killeen Texas. He worked there until 2006 when he moved to Ft. Worth to begin working with DFW Glazing. Mike has experience in all facets of the glass subcontractor industry. Has been a part of every step from apprentice to owner.',
     favoriteMemory: 'First thing he did on his very first day was help install glass on a slope glazed skylight atop the 3 story One Killeen Center and he thought it was the coolest thing ever. Fell in love with the glass business that day.',
@@ -14,7 +14,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'tony-hudgeons',
     name: 'Tony Hudgeons',
-    title: 'Co-Owner / Vice President',
+    title: 'Partner / Vice President',
     category: 'executive',
     career: 'Tony began working as a shop hand in the summers and weekends of 1975 at a glass company in Fort Worth. Spent several years with his own glass retail business and began with DFW Glazing in 2004 and was the very first employee!',
     favoriteMemory: 'Being an instrumental part of pitching the idea and developing DFW Glazing.',
@@ -51,7 +51,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'bethany-fowler',
     name: 'Bethany Fowler',
-    title: 'Office Manager / HR / Accounts',
+    title: 'Office Manager / Controller',
     category: 'administration',
     career: 'Bethany is a graduate of The University of North Texas and began her glazing career with DFW Glazing in 2010.',
     personal: 'Bethany is married to Josh and they have 2 children & live in Ft. Worth. Loves reading, camping and spending time with family.'

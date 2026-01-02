@@ -31,6 +31,7 @@ export interface Supplier {
   name: string;
   url: string;
   category: 'aluminum' | 'glass';
+  subcategory?: 'storefront' | 'windows';
 }
 
 export interface Testimonial {

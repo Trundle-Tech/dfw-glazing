@@ -150,18 +150,24 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
-      {/* Contact Information & Form */}
-      <section className="py-12 flex-1 flex items-center">
+    <div className="flex flex-col">
+      {/* Hero Section */}
+      <section className="bg-black text-white py-20">
         <div className="container mx-auto px-4">
-          <FadeIn direction="up">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">Contact Us</h1>
-              <p className="text-lg text-gray-600">
+          <div className="max-w-3xl">
+            <FadeIn direction="up">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
+              <p className="text-xl text-gray-300">
                 Get in touch to discuss your commercial glass project
               </p>
-            </div>
-          </FadeIn>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Information & Form */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
 
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Contact Info Cards */}
@@ -174,10 +180,10 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="block"
               >
-                <Card className="hover:shadow-lg hover:border-[#339900] transition-all duration-300 cursor-pointer border-2 border-gray-200">
+                <Card className="hover:shadow-lg hover:border-[#0e8c21] transition-all duration-300 cursor-pointer border-2 border-gray-200">
                   <CardContent className="p-6">
                     <div className="flex items-start">
-                      <div className="w-12 h-12 bg-[#339900] rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <div className="w-12 h-12 bg-[#0e8c21] rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                         <MapPin className="w-6 h-6 text-white" />
                       </div>
                       <div>
@@ -186,7 +192,7 @@ export default function ContactPage() {
                           4308 Clay Ave<br />
                           Haltom City, TX 76117
                         </p>
-                        <p className="text-[#339900] text-xs mt-2 font-medium">
+                        <p className="text-[#0e8c21] text-xs mt-2 font-medium">
                           Click to open in maps
                         </p>
                       </div>
@@ -198,12 +204,12 @@ export default function ContactPage() {
               <Card>
                 <CardContent className="p-6">
                   <div className="flex items-start">
-                    <div className="w-12 h-12 bg-[#339900] rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                    <div className="w-12 h-12 bg-[#0e8c21] rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-2">Phone</h3>
-                      <a href="tel:8176969500" className="text-gray-600 hover:text-[#339900] text-sm">
+                      <a href="tel:8176969500" className="text-gray-600 hover:text-[#0e8c21] text-sm">
                         817-696-9500
                       </a>
                       <p className="text-gray-600 text-sm mt-1">
@@ -217,14 +223,14 @@ export default function ContactPage() {
               <Card>
                 <CardContent className="p-6">
                   <div className="flex items-start">
-                    <div className="w-12 h-12 bg-[#339900] rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                    <div className="w-12 h-12 bg-[#0e8c21] rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                       <Clock className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-2">Business Hours</h3>
                       <p className="text-gray-600 text-sm">
-                        Monday - Friday<br />
-                        8:00 AM - 5:00 PM
+                        Monday thru Friday<br />
+                        7:30 a.m - 4 p.m.
                       </p>
                     </div>
                   </div>
@@ -239,7 +245,7 @@ export default function ContactPage() {
               <FadeIn direction="right" delay={0.2} className="h-full">
               <Card className="h-full">
                 <CardContent className="p-6 h-full flex flex-col">
-                  <h2 className="text-xl font-bold mb-4">Request a Quote</h2>
+                  <h2 className="text-xl font-bold mb-4">Get In Touch</h2>
 
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 flex flex-col">
@@ -357,7 +363,7 @@ export default function ContactPage() {
                                 />
                                 <label
                                   htmlFor="file-upload"
-                                  className="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#339900] hover:bg-gray-50 cursor-pointer transition-colors"
+                                  className="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#0e8c21] hover:bg-gray-50 cursor-pointer transition-colors"
                                 >
                                   <div className="text-center">
                                     <Upload className="w-5 h-5 text-gray-400 mx-auto mb-1" />
@@ -370,7 +376,7 @@ export default function ContactPage() {
                             ) : (
                               <div className="flex items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-lg">
                                 <div className="flex items-center gap-3">
-                                  <div className="w-10 h-10 bg-[#339900] rounded-lg flex items-center justify-center">
+                                  <div className="w-10 h-10 bg-[#0e8c21] rounded-lg flex items-center justify-center">
                                     <Upload className="w-5 h-5 text-white" />
                                   </div>
                                   <div>
@@ -402,7 +408,7 @@ export default function ContactPage() {
                       <div className="mt-4">
                         <Button
                           type="submit"
-                          className="w-full bg-[#339900] hover:bg-[#2d8500]"
+                          className="w-full bg-[#0e8c21] hover:bg-[#0c771c]"
                           disabled={isSubmitting}
                         >
                           {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -424,7 +430,7 @@ export default function ContactPage() {
           <DialogHeader>
             <div className="flex flex-col items-center text-center">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <CheckCircle className="w-8 h-8 text-[#339900]" />
+                <CheckCircle className="w-8 h-8 text-[#0e8c21]" />
               </div>
               <DialogTitle className="text-2xl">Submission Received</DialogTitle>
             </div>
@@ -435,7 +441,7 @@ export default function ContactPage() {
             </DialogDescription>
             <Button
               onClick={() => setSubmitSuccess(false)}
-              className="w-full bg-[#339900] hover:bg-[#2d8500]"
+              className="w-full bg-[#0e8c21] hover:bg-[#0c771c]"
             >
               Close
             </Button>

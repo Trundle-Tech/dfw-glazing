@@ -3,7 +3,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { teamMembers } from '@/data/team';
 import { User } from 'lucide-react';
-import { motion } from 'framer-motion';
 import FadeIn from '@/components/animations/FadeIn';
 
 export default function TeamPage() {
@@ -19,7 +18,7 @@ export default function TeamPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
+      <section className="bg-black text-white py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <FadeIn direction="up">
@@ -33,16 +32,23 @@ export default function TeamPage() {
       </section>
 
       {/* Team Members by Category */}
-      {categories.map((category) => {
+      {categories.map((category, categoryIndex) => {
         const members = teamMembers.filter((member) => member.category === category);
 
         if (members.length === 0) return null;
 
+        // Alternate backgrounds: Executive (white), Management (black), Administration (white), Field (black)
+        const isBlackSection = categoryIndex % 2 === 1;
+        const sectionBg = isBlackSection ? 'bg-black text-white' : 'bg-white';
+        const cardBorder = isBlackSection ? 'border-2 border-white hover:border-[#0e8c21]' : 'border-2 border-gray-200 hover:border-[#0e8c21]';
+        const cardBg = isBlackSection ? 'bg-white' : '';
+        const textColor = isBlackSection ? 'text-gray-900' : 'text-gray-900';
+
         return (
-          <section key={category} className="py-20 odd:bg-gray-100 even:bg-gray-50">
+          <section key={category} className={`py-20 ${sectionBg}`}>
             <div className="container mx-auto px-4">
               <FadeIn direction="up">
-                <h2 className="text-3xl font-bold mb-12 text-center border-b pb-4">
+                <h2 className={`text-3xl md:text-4xl font-bold mb-12 text-center ${isBlackSection ? 'border-b border-white pb-4' : 'border-b border-gray-300 pb-4'}`}>
                   {categoryTitles[category]}
                 </h2>
               </FadeIn>
@@ -50,7 +56,7 @@ export default function TeamPage() {
               <div className="space-y-12">
                 {members.map((member, index) => (
                   <FadeIn key={member.id} delay={index * 0.1} direction="up">
-                    <Card className="max-w-5xl mx-auto border-2 border-gray-200">
+                    <Card className={`max-w-5xl mx-auto ${cardBorder} ${cardBg} hover:shadow-2xl transition-all duration-300`}>
                       <CardContent className="p-0">
                         <div className="grid md:grid-cols-[300px_1fr] gap-0">
                           {/* Image Placeholder */}
@@ -59,27 +65,27 @@ export default function TeamPage() {
                           </div>
 
                           {/* Member Info */}
-                          <div className="p-8">
-                            <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
-                            <p className="text-lg text-[#339900] font-medium mb-6">{member.title}</p>
+                          <div className="p-6">
+                            <h3 className={`text-2xl font-bold mb-1 ${textColor}`}>{member.name}</h3>
+                            <p className="text-lg text-[#0e8c21] font-medium mb-6">{member.title}</p>
 
                             {member.career && (
                               <div className="mb-4">
-                                <h4 className="font-semibold text-gray-900 mb-2">Career</h4>
+                                <h4 className={`font-semibold mb-2 ${textColor}`}>Career</h4>
                                 <p className="text-gray-700">{member.career}</p>
                               </div>
                             )}
 
                             {member.favoriteMemory && (
                               <div className="mb-4">
-                                <h4 className="font-semibold text-gray-900 mb-2">Favorite Glass Memories</h4>
+                                <h4 className={`font-semibold mb-2 ${textColor}`}>Favorite Glass Memories</h4>
                                 <p className="text-gray-700">{member.favoriteMemory}</p>
                               </div>
                             )}
 
                             {member.personal && (
                               <div>
-                                <h4 className="font-semibold text-gray-900 mb-2">Personal & Hobbies</h4>
+                                <h4 className={`font-semibold mb-2 ${textColor}`}>Personal & Hobbies</h4>
                                 <p className="text-gray-700">{member.personal}</p>
                               </div>
                             )}
@@ -96,10 +102,10 @@ export default function TeamPage() {
       })}
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#339900] text-white">
+      <section className="py-20 bg-[#0e8c21] text-white">
         <div className="container mx-auto px-4 text-center">
           <FadeIn direction="up">
-            <h2 className="text-3xl font-bold mb-4">Join Our Team</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Our Team</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
               Interested in being part of the DFW Glazing family? We're always looking for talented professionals.
             </p>

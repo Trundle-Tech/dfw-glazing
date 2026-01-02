@@ -3,7 +3,112 @@
 ## Project Overview
 Commercial glass installation company website built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion.
 
-## Latest Updates (December 2, 2025)
+## Latest Updates (January 1, 2026)
+
+### Major Design Overhaul
+
+#### Color Scheme Redesign
+- **Changed:** Primary color from lime green (#339900) to kelly green (#00A86B)
+- **Changed:** Hover state from #2d8500 to #008F5B
+- **Applied:** Black and white base with kelly green accents throughout entire site
+- **Updated:** All 10 component files (home, about, services, team, projects, contact, suppliers, header, footer, StickyCTA)
+- **Philosophy:** Professional, clean aesthetic with strategic color accents
+
+#### Hero Section Redesign
+- **Image:** Replaced gradient background with Nolan Catholic High School project photo
+- **Source:** `/images/projects/nolanHighschoolHero.jpeg` (4K resolution, 16:9 aspect ratio)
+- **Layout:** Split design - content on left, image on right (desktop)
+- **Image Settings:**
+  - `object-contain` for quality preservation
+  - `quality={100}` and `unoptimized` to prevent compression
+  - Positioned right on desktop (`md:object-right`)
+  - Height: `h-[50vh] md:h-[60vh] max-h-[600px]`
+- **Text Overlays:**
+  - Project name in bottom right: "Nolan Catholic High School, Ft. Worth, Texas, Linbeck Group"
+  - Light font with proper z-index layering
+- **Main Content (Left Side):**
+  - Heading: "Commercial Glass Installation Excellence Since 2004"
+  - Stats badges: 80+ Years Experience, 550+ Projects, 100% Client Satisfaction
+  - CTA buttons: Contact Us, View Projects
+  - Smooth slide-in animations from left
+
+#### Stats & Content Updates
+- **Removed:** "Years Combined Experience" from stats section
+- **Changed:** "1000+ Projects Completed" → "Over 550 Projects Completed"
+- **Added:** "80+ Years Combined Experience" as hero badge
+- **Removed:** Redundant white content section below hero
+- **Stats Format:** Badge/pill style with white backgrounds and kelly green numbers
+
+#### CTA Language Updates
+- **Removed:** All instances of "Get Free Quote" across entire site
+- **Replaced with:** "Contact Us" for consistency
+- **Updated files:**
+  - Home page (4 instances)
+  - Header desktop & mobile (2 instances)
+  - Sticky CTA component (2 instances)
+  - Services page CTA
+  - Projects page CTA
+  - Contact page heading
+
+#### Team Data Updates
+- **Mike Bynum:** "Co-Owner / President" → "Partner / President"
+- **Tony Hudgeons:** "Co-Owner / Vice President" → "Partner / Vice President"
+- **Bethany Fowler:** "Office Manager / HR / Accounts" → "Office Manager / Controller"
+- **Location:** `src/data/team.ts`
+
+#### Suppliers Updates
+- **Removed:** Oldcastle (aluminum), Oldcastle Glass (glass)
+- **Added:** Precision Glass (no URL), Peerless Windows (no URL)
+- **Reorganized:** Suppliers page with tabbed interface
+  - **Aluminum Suppliers (2 tabs):**
+    - Storefront/Curtainwall: Kawneer, MANKO
+    - Aluminum Window: Peerless Windows
+  - **Glass Suppliers:** Tristar Glass, Trulite Glass, Precision Glass
+- **Added:** `subcategory` field to Supplier interface ('storefront' | 'windows')
+- **Page Type:** Changed to 'use client' for tab state management
+
+#### Business Hours Update
+- **Changed:** "Monday - Friday, 8:00 AM - 5:00 PM" → "Monday thru Friday, 7:30 a.m - 4 p.m."
+- **Location:** Contact page
+
+#### Featured Projects - Auto-Rotating Carousel
+- **Replaced:** Static 3-column grid with dynamic carousel
+- **Features:**
+  - Auto-rotates every 5 seconds
+  - Pauses on hover
+  - Manual navigation with left/right arrows
+  - Dot indicators for all slides (clickable)
+  - Smooth slide transitions with Framer Motion
+  - Shows 1 project at a time for maximum impact
+- **Design:** Hero-style image overlays (no card borders)
+  - Full-width images (400px mobile, 600px desktop)
+  - Category tag in top right (kelly green)
+  - Project name and location in bottom left (white text)
+  - 30% dark overlay for text readability
+- **Implementation:**
+  - State management with useState (currentSlide, isHovering)
+  - useEffect for auto-rotation interval
+  - AnimatePresence for smooth transitions
+  - Responsive navigation controls
+
+### Technical Changes
+
+#### New Dependencies/Imports
+- **Added:** `useState`, `useEffect` from React
+- **Added:** `ChevronLeft`, `ChevronRight` icons from lucide-react
+- **Added:** `AnimatePresence` from framer-motion
+
+#### Component Structure Updates
+- **Home Page:** Now stateful component with carousel logic
+- **Suppliers Page:** Converted to client component with tab state
+- **Hero Section:** Complex layering with image, overlay, project name, and main content
+
+#### Image Optimization Strategy
+- **Hero Image:** Unoptimized, 100% quality, object-contain
+- **Carousel Images:** Priority loading for first slide
+- **Format:** JPEG for photographs, proper aspect ratios
+
+## Previous Updates (December 2, 2025)
 
 ### n8n Webhook Integration
 
@@ -146,10 +251,10 @@ Commercial glass installation company website built with Next.js 15, TypeScript,
 ## Technical Details
 
 ### Color Scheme
-- **Primary Green:** `#339900`
-- **Hover Green:** `#2d8500`
-- **Background Gray:** `bg-gray-50`, `bg-gray-100`
-- **Card Borders:** `border-gray-200` default, `border-[#339900]` on hover
+- **Primary Kelly Green:** `#00A86B` (updated from #339900)
+- **Hover Kelly Green:** `#008F5B` (updated from #2d8500)
+- **Background:** Black and white base with kelly green accents
+- **Card Borders:** `border-gray-200` default, `border-[#00A86B]` on hover
 
 ### Image Configuration
 - **Format:** All project images use `.jpeg` extension
@@ -245,7 +350,36 @@ Contact form submission endpoint that forwards data to n8n webhook.
 
 ---
 
-**Last Updated:** December 2, 2025
+**Last Updated:** January 1, 2026
 **Developer:** Claude (Anthropic)
 **Framework:** Next.js 15.5.5
 **Node Version:** Recommended v18+
+
+## Summary of January 1, 2026 Updates
+
+### What Changed:
+1. ✅ Complete color scheme redesign (lime green → kelly green)
+2. ✅ Hero section redesign with project photo and split layout
+3. ✅ Auto-rotating carousel for featured projects
+4. ✅ Updated stats (80+ years experience, 550+ projects)
+5. ✅ Removed all "free quote" language
+6. ✅ Updated team titles
+7. ✅ Reorganized suppliers with tabs
+8. ✅ Updated business hours
+9. ✅ Moved main content into hero section
+10. ✅ Hero-style overlays for carousel
+
+### Files Modified:
+- `src/app/page.tsx` - Hero redesign, carousel implementation
+- `src/app/about/page.tsx` - Color updates
+- `src/app/services/page.tsx` - Color updates, CTA text
+- `src/app/team/page.tsx` - Color updates
+- `src/app/projects/page.tsx` - Color updates, CTA text
+- `src/app/contact/page.tsx` - Color updates, business hours, CTA text
+- `src/app/suppliers/page.tsx` - Complete reorganization with tabs
+- `src/components/layout/Header.tsx` - Color updates, CTA text
+- `src/components/layout/Footer.tsx` - Color updates
+- `src/components/layout/StickyCTA.tsx` - Color updates, CTA text
+- `src/data/team.ts` - Title updates
+- `src/data/suppliers.ts` - Supplier updates
+- `src/types/index.ts` - Added subcategory to Supplier interface

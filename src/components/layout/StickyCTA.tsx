@@ -41,18 +41,18 @@ export default function StickyCTA() {
               onClick={() => setIsExpanded(true)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="bg-[#339900] hover:bg-[#2d8500] text-white rounded-full p-4 shadow-2xl flex items-center gap-2 group"
+              className="bg-[#0e8c21] hover:bg-[#0c771c] text-white rounded-full p-4 shadow-2xl flex items-center gap-2 group"
             >
               <MessageSquare className="w-6 h-6" />
               <span className="font-bold text-lg pr-2 max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300">
-                Get Quote
+                Contact
               </span>
             </motion.button>
           ) : (
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-white rounded-2xl shadow-2xl p-6 w-80 border-2 border-[#339900]"
+              className="bg-white rounded-2xl shadow-2xl p-6 w-80 border-2 border-[#0e8c21]"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-bold text-gray-900">Get Started</h3>
@@ -74,10 +74,10 @@ export default function StickyCTA() {
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Button asChild className="w-full bg-[#339900] hover:bg-[#2d8500] shadow-md hover:shadow-lg transition-all text-white">
+                  <Button asChild className="w-full bg-[#0e8c21] hover:bg-[#0c771c] shadow-md hover:shadow-lg transition-all text-white">
                     <Link href="/contact">
                       <MessageSquare className="w-4 h-4 mr-2" />
-                      Request a Quote
+                      Contact Us
                     </Link>
                   </Button>
                 </motion.div>
@@ -90,7 +90,7 @@ export default function StickyCTA() {
                   <Button
                     asChild
                     variant="outline"
-                    className="w-full border-[#339900] text-[#339900] hover:bg-[#339900] hover:text-white shadow-sm hover:shadow-md transition-all"
+                    className="w-full border-[#0e8c21] text-[#0e8c21] hover:bg-[#0e8c21] hover:text-white shadow-sm hover:shadow-md transition-all"
                   >
                     <a href="tel:8176969500">
                       <Phone className="w-4 h-4 mr-2" />
@@ -102,7 +102,7 @@ export default function StickyCTA() {
 
               <div className="mt-4 pt-4 border-t text-center">
                 <p className="text-xs text-gray-500">
-                  Average response time: <span className="font-bold text-[#339900]">1 hour</span>
+                  Average response time: <span className="font-bold text-[#0e8c21]">1 hour</span>
                 </p>
               </div>
             </motion.div>

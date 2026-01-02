@@ -27,7 +27,7 @@ export default function ProjectsPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
+      <section className="bg-black text-white py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <FadeIn direction="up">
@@ -53,7 +53,7 @@ export default function ProjectsPage() {
                 size="sm"
                 className={
                   selectedCategory === category.id
-                    ? 'bg-[#339900] hover:bg-[#2d8500] text-xs md:text-sm'
+                    ? 'bg-[#0e8c21] hover:bg-[#0c771c] text-xs md:text-sm'
                     : 'text-xs md:text-sm'
                 }
               >
@@ -65,12 +65,12 @@ export default function ProjectsPage() {
       </section>
 
       {/* Projects Grid */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-black text-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project, index) => (
               <FadeIn key={project.id} delay={index * 0.02} direction="up">
-                <Card className="overflow-hidden h-full border-2 border-gray-200">
+                <Card className="overflow-hidden h-full bg-white border-2 border-white hover:border-[#0e8c21] hover:shadow-2xl transition-all duration-300">
                   <CardContent className="p-0">
                     {/* Project Image */}
                     <div className="relative h-64 bg-gray-300 flex items-center justify-center overflow-hidden">
@@ -85,10 +85,10 @@ export default function ProjectsPage() {
                     </div>
 
                     <div className="p-6">
-                      <h3 className="text-xl font-bold mb-2">{project.name}</h3>
-                      <p className="text-gray-600 mb-2">{project.location}</p>
-                      {project.description && <p className="text-sm text-gray-500 mb-3">{project.description}</p>}
-                      <span className="inline-block px-3 py-1 bg-[#339900] text-white text-sm rounded-full capitalize">
+                      <h3 className="text-xl font-bold mb-2 text-gray-900">{project.name}</h3>
+                      <p className="text-gray-700 mb-2">{project.location}</p>
+                      {project.description && <p className="text-sm text-gray-600 mb-3">{project.description}</p>}
+                      <span className="inline-block px-3 py-1 bg-[#0e8c21] text-white text-sm rounded-full capitalize">
                         {project.category}
                       </span>
                     </div>
@@ -100,7 +100,7 @@ export default function ProjectsPage() {
             {/* Add Your Project CTA Card */}
             <FadeIn delay={filteredProjects.length * 0.02} direction="up">
               <Link href="/contact">
-                <Card className="overflow-hidden h-full cursor-pointer border-2 border-[#339900] bg-gradient-to-br from-[#339900] to-[#2d8500] hover:from-[#2d8500] hover:to-[#339900] transition-all">
+                <Card className="overflow-hidden h-full cursor-pointer border-2 border-[#0e8c21] bg-gradient-to-br from-[#0e8c21] to-[#0c771c] hover:from-[#0c771c] hover:to-[#0e8c21] transition-all">
                   <CardContent className="p-0">
                     <div className="relative h-full flex flex-col items-center justify-center text-white p-6">
                       <div className="text-6xl mb-4">+</div>
@@ -108,7 +108,7 @@ export default function ProjectsPage() {
                       <p className="text-white/90 px-6 text-center mb-6">
                         Ready to work with us? Let's discuss your next glass installation project.
                       </p>
-                      <Button className="bg-white hover:bg-gray-100 text-[#339900] font-semibold">
+                      <Button className="bg-white hover:bg-gray-100 text-[#0e8c21] font-semibold">
                         Contact Us Today
                       </Button>
                     </div>
@@ -127,11 +127,11 @@ export default function ProjectsPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gray-100">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <FadeIn direction="up">
             <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold mb-6">Project Excellence</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Project Excellence</h2>
               <p className="text-lg text-gray-700">
                 From small retail storefronts to large-scale commercial curtainwall projects, we've
                 successfully completed hundreds of installations across Texas and Oklahoma. Our portfolio
@@ -143,15 +143,15 @@ export default function ProjectsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#339900] text-white">
+      <section className="py-20 bg-[#0e8c21] text-white">
         <div className="container mx-auto px-4 text-center">
           <FadeIn direction="up">
-            <h2 className="text-3xl font-bold mb-4">Ready to Start Your Project?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Project?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
               Let us bring our experience and expertise to your next commercial glass project
             </p>
-            <Button asChild size="lg" variant="outline" className="border-white bg-white text-[#339900] hover:bg-gray-100 shadow-lg transition-all">
-              <Link href="/contact">Get a Quote Today</Link>
+            <Button asChild size="lg" variant="outline" className="border-white bg-white text-[#0e8c21] hover:bg-gray-100 shadow-lg transition-all">
+              <Link href="/contact">Contact Us</Link>
             </Button>
           </FadeIn>
         </div>

@@ -33,12 +33,11 @@ export default function FadeIn({
         opacity: 0,
         ...directionOffset[direction],
       }}
-      whileInView={{
+      animate={{
         opacity: 1,
         x: 0,
         y: 0,
       }}
-      viewport={{ once: true, amount: 0 }}
       transition={{
         duration,
         delay,

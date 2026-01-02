@@ -9,7 +9,9 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
+  SheetTitle,
 } from '@/components/ui/sheet';
+import { VisuallyHidden } from '@/components/ui/visually-hidden';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -46,7 +48,7 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#339900] hover:bg-gray-50 rounded-md transition-colors"
+                className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#0e8c21] hover:bg-gray-50 rounded-md transition-colors"
               >
                 {item.name}
               </Link>
@@ -55,12 +57,12 @@ export default function Header() {
 
           {/* Contact Button (Desktop) */}
           <div className="hidden md:flex items-center space-x-4">
-            <a href="tel:8176969500" className="flex items-center text-sm text-gray-600 hover:text-[#339900]">
+            <a href="tel:8176969500" className="flex items-center text-sm text-gray-600 hover:text-[#0e8c21]">
               <Phone className="w-4 h-4 mr-2" />
               817-696-9500
             </a>
-            <Button asChild className="bg-[#339900] hover:bg-[#2d8500] text-white">
-              <Link href="/contact">Get Quote</Link>
+            <Button asChild className="bg-[#0e8c21] hover:bg-[#0c771c] text-white">
+              <Link href="/contact">Contact</Link>
             </Button>
           </div>
 
@@ -72,13 +74,16 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <VisuallyHidden>
+                <SheetTitle>Navigation Menu</SheetTitle>
+              </VisuallyHidden>
               <nav className="flex flex-col space-y-4 mt-8">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="px-4 py-2 text-lg font-medium text-gray-700 hover:text-[#339900] hover:bg-gray-50 rounded-md transition-colors"
+                    className="px-4 py-2 text-lg font-medium text-gray-700 hover:text-[#0e8c21] hover:bg-gray-50 rounded-md transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -86,14 +91,14 @@ export default function Header() {
                 <div className="pt-4 border-t">
                   <a
                     href="tel:8176969500"
-                    className="flex items-center px-4 py-2 text-gray-600 hover:text-[#339900]"
+                    className="flex items-center px-4 py-2 text-gray-600 hover:text-[#0e8c21]"
                   >
                     <Phone className="w-5 h-5 mr-3" />
                     817-696-9500
                   </a>
-                  <Button asChild className="w-full mt-4 bg-[#339900] hover:bg-[#2d8500] text-white">
+                  <Button asChild className="w-full mt-4 bg-[#0e8c21] hover:bg-[#0c771c] text-white">
                     <Link href="/contact" onClick={() => setIsOpen(false)}>
-                      Get Quote
+                      Contact
                     </Link>
                   </Button>
                 </div>

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { services } from '@/data/services';
@@ -22,7 +21,7 @@ export default function ServicesPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
+      <section className="bg-black text-white py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <FadeIn direction="up">
@@ -37,24 +36,24 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-gray-100">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
               <FadeIn key={service.id} delay={index * 0.1} direction="up">
-                <Card className="h-full flex flex-col border-2 border-gray-200">
-                  <CardContent className="p-8 flex flex-col h-full">
-                    <div className="w-16 h-16 bg-[#339900] rounded-lg flex items-center justify-center mb-6 text-white">
+                <Card className="h-full flex flex-col border-2 border-gray-200 hover:border-[#0e8c21] hover:shadow-2xl transition-all duration-300">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <div className="w-16 h-16 bg-[#0e8c21] rounded-lg flex items-center justify-center mb-6 text-white">
                       {iconMap[service.icon]}
                     </div>
                     <h3 className="text-2xl font-bold mb-4">{service.name}</h3>
-                    <p className="text-gray-600 mb-6">{service.description}</p>
+                    <p className="text-gray-700 mb-6">{service.description}</p>
 
                     {service.details && (
                       <ul className="space-y-2 flex-grow">
                         {service.details.map((detail, index) => (
                           <li key={index} className="flex items-start text-sm text-gray-700">
-                            <CheckCircle2 className="w-5 h-5 text-[#339900] mr-2 flex-shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-5 h-5 text-[#0e8c21] mr-2 flex-shrink-0 mt-0.5" />
                             <span>{detail}</span>
                           </li>
                         ))}
@@ -69,11 +68,11 @@ export default function ServicesPage() {
       </section>
 
       {/* Process Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-black text-white">
         <div className="container mx-auto px-4">
           <FadeIn direction="up">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-8">Our Process</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12">Our Process</h2>
               <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                 {[
                   { num: 1, title: 'Consultation', desc: 'We meet to understand your project requirements and vision' },
@@ -84,14 +83,14 @@ export default function ServicesPage() {
                   <FadeIn key={step.num} delay={index * 0.1} direction="up">
                     <div className="flex items-center">
                       <div className="text-center">
-                        <div className="w-16 h-16 bg-[#339900] rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                        <div className="w-16 h-16 bg-[#0e8c21] rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                           {step.num}
                         </div>
                         <h3 className="font-semibold mb-2">{step.title}</h3>
-                        <p className="text-sm text-gray-600 max-w-[200px]">{step.desc}</p>
+                        <p className="text-sm text-gray-300 max-w-[200px]">{step.desc}</p>
                       </div>
                       {index < 3 && (
-                        <ArrowRight className="w-8 h-8 text-[#339900] mx-4 hidden md:block flex-shrink-0" />
+                        <ArrowRight className="w-8 h-8 text-white mx-4 hidden md:block flex-shrink-0" />
                       )}
                     </div>
                   </FadeIn>
@@ -103,45 +102,45 @@ export default function ServicesPage() {
       </section>
 
       {/* Capabilities Section */}
-      <section className="py-20 bg-gray-100">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <FadeIn direction="up">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 text-center">Our Capabilities</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Our Capabilities</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-3">
                 <div className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-[#0e8c21] mr-3 flex-shrink-0 mt-1" />
                   <p>Design assistance and value engineering</p>
                 </div>
                 <div className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-[#0e8c21] mr-3 flex-shrink-0 mt-1" />
                   <p>Budget proposals for design teams</p>
                 </div>
                 <div className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-[#0e8c21] mr-3 flex-shrink-0 mt-1" />
                   <p>Project management from start to finish</p>
                 </div>
                 <div className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-[#0e8c21] mr-3 flex-shrink-0 mt-1" />
                   <p>Meeting tight installation schedules</p>
                 </div>
               </div>
               <div className="space-y-3">
                 <div className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-[#0e8c21] mr-3 flex-shrink-0 mt-1" />
                   <p>Quality products from leading manufacturers</p>
                 </div>
                 <div className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-[#0e8c21] mr-3 flex-shrink-0 mt-1" />
                   <p>Code-compliant installations</p>
                 </div>
                 <div className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-[#0e8c21] mr-3 flex-shrink-0 mt-1" />
                   <p>Safety-focused work practices</p>
                 </div>
                 <div className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-[#339900] mr-3 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-[#0e8c21] mr-3 flex-shrink-0 mt-1" />
                   <p>Warranty and service support</p>
                 </div>
               </div>
@@ -152,15 +151,15 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#339900] text-white">
+      <section className="py-20 bg-[#0e8c21] text-white">
         <div className="container mx-auto px-4 text-center">
           <FadeIn direction="up">
-            <h2 className="text-3xl font-bold mb-4">Let's Discuss Your Project</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Discuss Your Project</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Contact us today for a free consultation and discover how we can bring your vision to life
+              Contact us today to discuss how we can bring your vision to life
             </p>
-            <Button asChild size="lg" variant="outline" className="border-white bg-white text-[#339900] hover:bg-gray-100 shadow-lg transition-all">
-              <Link href="/contact">Request a Quote</Link>
+            <Button asChild size="lg" variant="outline" className="border-white bg-white text-[#0e8c21] hover:bg-gray-100 shadow-lg transition-all">
+              <Link href="/contact">Contact Us</Link>
             </Button>
           </FadeIn>
         </div>
